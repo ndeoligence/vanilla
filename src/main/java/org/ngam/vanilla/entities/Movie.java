@@ -1,5 +1,8 @@
 package org.ngam.vanilla.entities;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class Movie {
 	private int id;
     private String title;
@@ -57,7 +60,7 @@ public class Movie {
                 '}';
     }
 
-/*    @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
@@ -65,7 +68,7 @@ public class Movie {
 
         Movie movie = (Movie) o;
 
-        return new org.apache.commons.lang.builder.EqualsBuilder()
+        return new EqualsBuilder()
                 .append(id, movie.id)
                 .append(title, movie.title)
                 .append(director, movie.director)
@@ -75,11 +78,11 @@ public class Movie {
 
     @Override
     public int hashCode() {
-        return new org.apache.commons.lang.builder.HashCodeBuilder(17, 37)
+        return new HashCodeBuilder(17, 37)
                 .append(id)
                 .append(title)
                 .append(director)
                 .append(synopsis)
                 .toHashCode();
-    }*/
+    }
 }
