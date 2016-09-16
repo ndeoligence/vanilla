@@ -10,4 +10,5 @@ import java.util.List;
 public interface VanillaDAO {
     List<Movie> getMovies();
     boolean addMovie(Movie movie);
+    boolean removeMovie(Movie movie);
 }

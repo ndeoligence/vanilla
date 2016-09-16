@@ -54,4 +54,32 @@ public class VanillaDAO_dbImpl implements VanillaDAO {
             return false;
         }
     }
+    @Override
+    public boolean removeMovie(Movie movie) {
+        if (movie == null || movie.getId() < 1) return false;
+        String sql = "remove from movies where id=?;";
+        try {
+            PreparedStatement ps=cf.get().prepareStatement(sql);
+            ps.setInt(1,movie.getId());
+            return ps.executeUpdate()>0;
+        } catch (SQLException e) {
+            System.err.println("Error : "+e);
+            return false;
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
