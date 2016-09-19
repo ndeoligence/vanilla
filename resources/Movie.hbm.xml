@@ -1,0 +1,11 @@
+<hibernate-mapping>
+    <class name="org.ngam.vanilla.entities.Movie" table="movies">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="title"/>
+        <property name="director" column="director"/>
+        <property name="synopsis" column="synopsis"/>
+    </class>
+</hibernate-mapping>
+
