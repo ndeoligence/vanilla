@@ -8,78 +8,58 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.testing.ServiceRegistryBuilder;
+
 /**
  * Created by phoenix on 9/15/16.
  */
 public class VanillaDAO_dbImpl implements VanillaDAO {
-    ConnectionFactory cf;
+    private SessionFactory sessionFactory = null;
+
+    /*
+     * Creating a SessionFactory using version 4.2 of Hibernate
+     */
     public VanillaDAO_dbImpl() {
-        cf=new ConnectionFactory();
+        Configuration config = new Configuration().configure();
+        // build a Registry with configuration properties
+        ServiceRegistry serviceReg = new ServiceRegistryBuilder().applySettings(config.getProperties()).buildRegistry();
+        // create session factory
+        sessionFactory = config.buildSessionFactory(serviceReg);
     }
     @Override
     public List<Movie> getMovies() {
-        List<Movie> movies=null;
-        String sql="select * from movies;";
-        try {
-            ResultSet resultSet=cf.get().prepareStatement(sql).executeQuery();
-            movies=new ArrayList<>();
-            Movie movie;
-            while (resultSet.next()) {
-                movie=new Movie();
-                movie.setId(resultSet.getInt("id"));
-                movie.setTitle(resultSet.getString("title"));
-                movie.setDirector(resultSet.getString("director"));
-                movie.setSynopsis(resultSet.getString("synopsis"));
-                movies.add(movie);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error : "+e);
-        }
+        Session session = sessionFactory.getCurrentSession();
+        List<Movie> movies = session.createQuery("from Movie").list();
+        session.getTransaction().commit();
         return movies;
     }
 
     @Override
+    public Movie getMovie(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        Movie movie = (Movie) session.load(Movie.class, id);
+
+        session.getTransaction().commit();
+        return movie;
+    }
+
+    @Override
     public boolean addMovie(Movie movie) {
-        if (movie==null) return false;
-        String sql = "insert into movies values (?,?,?,?);";
-        try {
-            PreparedStatement ps=cf.get().prepareStatement(sql);
-            ps.setInt(1,0);
-            ps.setString(2,movie.getTitle());
-            ps.setString(3,movie.getDirector());
-            ps.setString(4,movie.getSynopsis());
-            return ps.executeUpdate()>0;
-        } catch (SQLException e) {
-            System.err.println("Error : "+e);
-            return false;
-        }
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.save(movie);
+        session.getTransaction().commit();
+        return true;
     }
     @Override
     public boolean removeMovie(Movie movie) {
-        if (movie == null || movie.getId() < 1) return false;
-        String sql = "remove from movies where id=?;";
-        try {
-            PreparedStatement ps=cf.get().prepareStatement(sql);
-            ps.setInt(1,movie.getId());
-            return ps.executeUpdate()>0;
-        } catch (SQLException e) {
-            System.err.println("Error : "+e);
-            return false;
-        }
+        return false;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
