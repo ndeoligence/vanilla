@@ -23,7 +23,7 @@ public class VanillaDAODbImplTest {
         
         assertTrue(movies.size() > 0);
 
-        Movie db_mov = movies.get(movies.length()-1);
+        Movie db_mov = movies.get(movies.size()-1);
         // System.out.println("Got movie : "+db_mov);
         assertEquals(movie.getTitle(),db_mov.getTitle());
         assertEquals(movie.getDirector(),db_mov.getDirector());
