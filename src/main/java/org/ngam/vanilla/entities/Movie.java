@@ -1,7 +1,6 @@
 package org.ngam.vanilla.entities;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
 
 public class Movie {
 	private int id;
@@ -63,26 +62,16 @@ public class Movie {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
         if (!(o instanceof Movie)) return false;
-
         Movie movie = (Movie) o;
-
-        return new EqualsBuilder()
-                .append(id, movie.id)
-                .append(title, movie.title)
-                .append(director, movie.director)
-                .append(synopsis, movie.synopsis)
-                .isEquals();
+        return id == movie.id &&
+                Objects.equals(title, movie.title) &&
+                Objects.equals(director, movie.director) &&
+                Objects.equals(synopsis, movie.synopsis);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .append(title)
-                .append(director)
-                .append(synopsis)
-                .toHashCode();
+        return Objects.hash(id, title, director, synopsis);
     }
 }

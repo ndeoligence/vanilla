@@ -13,8 +13,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class VanillaDAODbImplTest {
-    @Test
-    public void testAddMovie() {
+    @Test public void testAddMovie() {
         Movie movie = new Movie(0,"Jaws","Steven Spielberg","Story of a great white shark!");
         VanillaDAO_dbImpl dao = new VanillaDAO_dbImpl();
         // System.out.println("Adding movie : "+movie);

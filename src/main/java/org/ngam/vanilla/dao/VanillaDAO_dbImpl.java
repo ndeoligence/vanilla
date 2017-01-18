@@ -1,18 +1,13 @@
 package org.ngam.vanilla.dao;
 
-import org.ngam.vanilla.entities.Movie;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.SessionFactory;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.testing.ServiceRegistryBuilder;
+import org.hibernate.service.ServiceRegistryBuilder;
+import org.ngam.vanilla.entities.Movie;
+
+import java.util.List;
 
 /**
  * Created by phoenix on 9/15/16.
@@ -25,10 +20,10 @@ public class VanillaDAO_dbImpl implements VanillaDAO {
      */
     public VanillaDAO_dbImpl() {
         Configuration config = new Configuration().configure();
-        // build a Registry with configuration properties
-        ServiceRegistry serviceReg = new ServiceRegistryBuilder().applySettings(config.getProperties()).buildRegistry();
-        // create session factory
-        sessionFactory = config.buildSessionFactory(serviceReg);
+        // Build a registry with our config properties
+        ServiceRegistry registry = new ServiceRegistryBuilder().applySettings(config.getProperties()).buildServiceRegistry();
+        // create the session factory
+        sessionFactory = config.buildSessionFactory(registry);
     }
     @Override
     public List<Movie> getMovies() {
