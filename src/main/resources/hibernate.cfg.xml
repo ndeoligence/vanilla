@@ -1,0 +1,26 @@
+<hibernate-configuration>
+    <!--This session factory entry contains def for one session.
+    A 2nd element with the same name would have to be added with different values
+    for connecting to a different DB if that were necessary.-->
+    <session-factory>
+        <property name="connection.url">
+            jdbc:mysql://localhost:3306/vanilladb
+        </property>
+        <property name="connection.driver_class">
+            org.mariadb.jdbc.Driver
+        </property>
+        <property name="connection.username">
+            maria
+        </property>
+        <property name="connection.password">
+            maria127
+        </property>
+        <property name="dialect">
+            org.hibernate.dialect.MySQL5Dialect
+        </property>
+        <property name="hbm2ddl.auto">
+            update
+        </property>
+        <mapping resource="Movie.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

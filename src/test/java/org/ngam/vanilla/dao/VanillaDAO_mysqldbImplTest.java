@@ -12,11 +12,11 @@ import static org.junit.Assert.assertEquals;
  * Created by phoenix on 9/15/16.
  */
 
-public class VanillaDAODbImplTest {
+public class VanillaDAO_mysqldbImplTest {
     @Test
     public void testAddMovie() {
         Movie movie = new Movie(0,"Jaws","Steven Spielberg","Story of a great white shark!");
-        VanillaDAO_dbImpl dao = new VanillaDAO_dbImpl();
+        VanillaDAO_mysqldbImpl dao = null;
         // System.out.println("Adding movie : "+movie);
         dao.addMovie(movie);
         List<Movie> movies = dao.getMovies();

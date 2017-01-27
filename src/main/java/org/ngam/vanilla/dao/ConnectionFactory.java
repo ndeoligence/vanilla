@@ -8,8 +8,10 @@ import java.util.Properties;
 /**
  * Created by phoenix on 9/15/16.
  */
-public class ConnectionFactory {
+public class ConnectionFactory implements AbstractConnectionFactory {
     private Connection connection = null;
+
+    @Override
     public Connection get() {
         if (connection==null)
             setup();

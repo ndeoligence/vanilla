@@ -1,5 +1,6 @@
 package org.ngam.vanilla.dao;
 
+import com.google.inject.Inject;
 import org.ngam.vanilla.entities.Movie;
 
 import java.sql.PreparedStatement;
@@ -11,11 +12,14 @@ import java.util.List;
 /**
  * Created by phoenix on 9/15/16.
  */
-public class VanillaDAO_dbImpl implements VanillaDAO {
-    ConnectionFactory cf;
-    public VanillaDAO_dbImpl() {
-        cf=new ConnectionFactory();
+public class VanillaDAO_mysqldbImpl implements VanillaDAO {
+    AbstractConnectionFactory cf;
+
+    @Inject
+    public VanillaDAO_mysqldbImpl(AbstractConnectionFactory cf) {
+        this.cf = cf;
     }
+
     @Override
     public List<Movie> getMovies() {
         List<Movie> movies=null;
@@ -68,18 +72,3 @@ public class VanillaDAO_dbImpl implements VanillaDAO {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
